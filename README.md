@@ -14,22 +14,22 @@ You can add sets, reps, and comments.
 
 ## Screenshots
 * Home tab, there are all of your workout days
-![Home](Screenshots/Home.png)
+![Home](Screenshots/Home.png =s360x800)
 * After selecting a certain workout day (or if you create a new one)
-![Workout Day](Screenshots/WorkoutDay.png)
+![Workout Day](Screenshots/WorkoutDay.png =s360x800)
 * After clicking on "edit" in workout day
-![Edit](Screenshots/WorkoutDayEdit.png)
+![Edit](Screenshots/WorkoutDayEdit.png =s360x800)
 * After clicking on "change type" in workout day -> edit
-![Edit2](Screenshots/WorkoutDayEditChangeType.png)
+![Edit2](Screenshots/WorkoutDayEditChangeType.png =s360x800)
 * After clicking on the "new exercise" in workout day -> edit
-![Edit3](Screenshots/WorkoutDayEditNewExercise.png)
+![Edit3](Screenshots/WorkoutDayEditNewExercise.png =s360x800)
 * After clicking on "?" in certain exercise in workout day -> edit (you see all sets and reps for that exercise in selected workout type)
-![Edit4](Screenshots/WorkoutDayEditQuestionMark.png)
+![Edit4](Screenshots/WorkoutDayEditQuestionMark.png =s360x800)
 * After clicking on Add Exercise tab
-![Add Exercise](Screenshots/AddExercise.png)
+![Add Exercise](Screenshots/AddExercise.png =s360x800)
 * After clicking on "Add New Exercise" in Add Exercise
-![Add Exercise2](Screenshots/AddExerciseAddNewExercise.png)
+![Add Exercise2](Screenshots/AddExerciseAddNewExercise.png =s360x800)
 * After clicking on "Add New Exercise Type" in Add Exercise
-![Add Exercise3](Screenshots/AddExerciseAddNewExerciseType.png)
+![Add Exercise3](Screenshots/AddExerciseAddNewExerciseType.png =s360x800)
 * ERD
 ![ERD](Screenshots/ERD.PNG)
