@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutMaster.Views.ExercisesPage">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout BackgroundColor="Black">
+                <Label Text="Add new exercise" BackgroundColor="Black" TextColor="White" HorizontalOptions="Center" FontSize="Large"/>
+            </StackLayout>
+            
+            <Grid Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Padding="0,15,0,0" Text="Exercise name:" FontSize="Medium" FontAttributes="Bold" ></Label>
+                    <Entry Grid.Row="0" Grid.Column="1" x:Name="Name" HorizontalOptions="FillAndExpand" TextColor="Orange"></Entry>
+
+                    <Label Grid.Row="1" Grid.Column="0" Padding="0,15,0,0" Text="Description:" FontSize="Medium" FontAttributes="Bold" ></Label>
+                    <Entry Grid.Row="1" Grid.Column="1" x:Name="Description" HorizontalOptions="FillAndExpand" TextColor="Green"></Entry>
+
+                    <Button Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,0" Text="Add exercise" BackgroundColor="Green" Clicked="OnAddExercise"/>
+                </Grid>
+            </Grid>
+
+            <StackLayout BackgroundColor="Black" Margin="0,20,0,0">
+            <Label Text="Your's exercises" BackgroundColor="Black" TextColor="White" HorizontalOptions="Center" FontSize="Large"/>
+            <Label Text="( You can only delete exercise, that isn't in any workout day )" Margin="0,0,0,10" BackgroundColor="Black" TextColor="Red" HorizontalOptions="Center" FontSize="Small"/>
+        </StackLayout>
+        
+        <CollectionView Grid.Row="1" x:Name="ExercisesView" Margin="10,20,10,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Text="Name:" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Black" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Orange"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Text="Description:" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Black"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Green"/>
+
+                            <Button Grid.Row="2" Grid.ColumnSpan="2" Text="Delete" HorizontalOptions="Start" BackgroundColor="Red"
+                                    Margin="10,10,0,40"
+                                    Clicked="OnDelExercise"
+                                    CommandParameter="{Binding Id}"
+                                    />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

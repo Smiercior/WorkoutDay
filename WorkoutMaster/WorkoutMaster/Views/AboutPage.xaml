@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutMaster.Views.AboutPage"
+             xmlns:vm="clr-namespace:WorkoutMaster.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+       
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,2,30,24" Spacing="10">
+                <Label Text="Your workout days" FontSize="Title" HorizontalOptions="Center" TextColor="Orange"/>
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView Grid.Row="2">
+            <CollectionView x:Name="collectionView" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Row="0" Grid.Column="0" Text="{Binding Date,StringFormat='{}{0:dd.MM.yyyy}'}" HorizontalOptions="Center" FontSize="Medium" Padding="0,0,0,0"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    Clicked="OnDisplay"
+                                    CommandParameter="{Binding Id}"
+                                    />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Type}" VerticalOptions="Center" TextColor="Green" HorizontalOptions="Start" FontSize="Medium" />
+                            </Grid>
+                            
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <ScrollView Grid.Row="3">
+            <StackLayout Orientation="Vertical" Padding="30,2,30,24" Spacing="10">
+                <Button Margin="0,5,0,0" Text="New workout day"
+                        Clicked="OnCreateNewDay"
+                        BackgroundColor="{StaticResource BtnGreen}"
+                        TextColor="White" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
+
+    
+<!-- Command="{Binding OpenWebCommand}" -->

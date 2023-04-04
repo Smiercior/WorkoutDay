@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutMaster.Views.LoginPage"
+             xmlns:vm="clr-namespace:WorkoutMaster.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="10,50,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Text="Add new exercise"
+                BackgroundColor="Green"
+                Clicked="OnNewExercise"/>
+        <Button Grid.Row="1" Text="Add new exercise type"
+                BackgroundColor="Green"
+                 Clicked="OnNewExerciseType"/>
+    </Grid>
+</ContentPage>

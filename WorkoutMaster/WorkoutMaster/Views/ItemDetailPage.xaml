@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutMaster.Views.ItemDetailPage"
+             Title="{Binding Title}">
+    
+        <StackLayout x:Name="WorkoutDayLayout">
+        <Label Text="{Binding Date,StringFormat='{}{0:dd.MM.yyyy}'}" HorizontalOptions="Center" FontSize="Medium" Padding="0,10,0,0" TextColor="Gold"/>
+
+            <Grid Margin="1,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Entry Grid.Row="0" Grid.Column="0" Text="{Binding Type}" HorizontalOptions="FillAndExpand" FontSize="Medium" TextColor="Green" Placeholder="Type of workout"/>
+                <Button Grid.Row="0" Grid.Column="1" Text="Change type"
+                                    Clicked="OnChangeExerciseType"/>
+            </Grid>
+
+            <CollectionView x:Name="exerciseEntriesView" ItemsSource="{Binding ExerciseEntries}" Margin="10,0,10,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="10,20,0,0">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding ExerciseName}" HorizontalOptions="Start" FontSize="Medium" Padding="0,10,0,0" TextColor="Black" FontAttributes="Bold"/>
+                                <Button Grid.Row="0" Grid.Column="1"
+                                                        Text="delete"
+                                                        HorizontalOptions="Start"
+                                                        FontSize="Small"
+                                                        TextColor="Red"
+                                                        BackgroundColor="White"
+                                                        Clicked="OnExerciseEntryDelete"
+                                                        CommandParameter="{Binding Id}"/>
+                                <StackLayout Grid.Row="0" Grid.Column="2">
+                                    <Button Text="?"
+                                                        Clicked="OnExerciseStats"
+                                                        CommandParameter="{Binding ExerciseName}"
+                                                        BackgroundColor="DarkOrange"
+                                                        TextColor="White"
+                                                        Margin="0,0,10,0"
+                                                        FontSize="Small"
+                                                        WidthRequest="30"
+                                                        HeightRequest="35"
+                                                        HorizontalOptions="End" />
+                                </StackLayout>
+                            </Grid>
+
+                            <FlexLayout Direction="Column" BindableLayout.ItemsSource="{Binding Sets}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding KG}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                            <Label Grid.Row="0" Grid.Column="1" Text=" x "  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding Reps}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                            <Button Grid.Row="0" Grid.Column="3"
+                                                                    Text="delete"
+                                                                    Margin="0,0,0,4"
+                                                                    Padding="0,0,0,22"
+                                                                    VerticalOptions="Start"
+                                                                    HorizontalOptions="Start"
+                                                                    FontSize="Small"
+                                                                    TextColor="Red"
+                                                                    BackgroundColor="White"
+                                                                    Clicked="OnSetDelete"
+                                                                    CommandParameter="{Binding Id}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="1.2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="{Binding Id}" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Text="Add Set"
+                                                Clicked="OnAddSet"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="{StaticResource BtnGreen}"
+                                                TextColor="White" />
+                                <Entry x:Name="KG" Grid.Row="0" Grid.Column="1" Placeholder="kg" TextChanged="OnKGTextChanged" Keyboard="Numeric"></Entry>
+                                <Entry x:Name="Reps" Grid.Row="0" Grid.Column="2" Placeholder="reps ( use , )" TextChanged="OnSetTextChanged"></Entry>
+                                <Entry x:Name="Comment" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Comment}" Placeholder="Your comment" FontSize="Medium" TextColor="Gray" HorizontalOptions="FillAndExpand" />
+                                <Button Grid.Row="1" Grid.Column="2"
+                                                        Margin="0,0,0,0"
+                                                        Text="Save comment"
+                                                        HorizontalOptions="Start"
+                                                        CommandParameter="{Binding Id}"
+                                                        Clicked="OnCommentSave"/>
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ScrollView>
+                    <Button Margin="0,0,0,0" Text="New exercise"
+                        
+                            Clicked="OnNewExercise"
+                            BackgroundColor="{StaticResource BtnGreen}"
+                            TextColor="White" />
+            </ScrollView>
+        </StackLayout>
+        
+        
+        <!--<ScrollView Grid.Row="1" x:Name="exercisesListView">-->
+        <!--
+        <CollectionView Grid.Row="1" x:Name="workoutDayView" >
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout x:Name="workoutDayFieldsChild">
+                        <Label Text="{Binding Date}" HorizontalOptions="Center" FontSize="Medium" Padding="0,10,0,0" TextColor="Gold"/>
+
+                        <Grid Margin="10,0,10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding Type}" HorizontalOptions="FillAndExpand" FontSize="Medium" TextColor="Green" Placeholder="Type of workout"/>
+                            <Button Grid.Row="0" Grid.Column="1" Text="Change type"
+                                    Clicked="OnChangeExerciseType"/>
+                        </Grid>
+
+                        <FlexLayout Direction="Column" x:Name="exerciseEntriesView" BindableLayout.ItemsSource="{Binding ExerciseEntries}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Margin="10,20,0,0">
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ExerciseName}" HorizontalOptions="Start" FontSize="Medium" Padding="0,10,0,0" TextColor="Black" FontAttributes="Bold"/>
+                                            <Button Grid.Row="0" Grid.Column="1"
+                                                        Text="delete"
+                                                        HorizontalOptions="Start"
+                                                        FontSize="Small"
+                                                        TextColor="Red"
+                                                        BackgroundColor="White"
+                                                        Clicked="OnExerciseEntryDelete"
+                                                        CommandParameter="{Binding Id}"/>
+                                            <StackLayout Grid.Row="0" Grid.Column="2">
+                                                <Button Text="?"
+                                                        Clicked="OnExerciseStats"
+                                                        CommandParameter="{Binding Id}"
+                                                        BackgroundColor="DarkOrange"
+                                                        TextColor="White"
+                                                        Margin="0,0,10,0"
+                                                        FontSize="Small"
+                                                        WidthRequest="30"
+                                                        HeightRequest="35"
+                                                        HorizontalOptions="End" />
+                                            </StackLayout>
+                                        </Grid>
+
+                                        <FlexLayout Direction="Column" BindableLayout.ItemsSource="{Binding Sets}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding KG}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                                        <Label Grid.Row="0" Grid.Column="1" Text=" x "  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Reps}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                                        <Button Grid.Row="0" Grid.Column="3"
+                                                                    Text="delete"
+                                                                    Margin="0,0,0,4"
+                                                                    Padding="0,0,0,22"
+                                                                    VerticalOptions="Start"
+                                                                    HorizontalOptions="Start"
+                                                                    FontSize="Small"
+                                                                    TextColor="Red"
+                                                                    BackgroundColor="White"
+                                                                    Clicked="OnSetDelete"
+                                                                    CommandParameter="{Binding Id}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </FlexLayout>
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button x:Name="{Binding Id}" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Text="Add Set"
+                                                Clicked="OnAddSet"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="{StaticResource BtnGreen}"
+                                                TextColor="White" />
+                                            <Entry x:Name="KG" Grid.Row="0" Grid.Column="1" Placeholder="kg" TextChanged="OnKGTextChanged" Keyboard="Numeric"></Entry>
+                                            <Entry x:Name="Reps" Grid.Row="0" Grid.Column="2" Placeholder="reps ( use , )" TextChanged="OnSetTextChanged"></Entry>
+                                            <Entry x:Name="Comment" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Comment}" Placeholder="Your comment" FontSize="Medium" TextColor="Gray" HorizontalOptions="FillAndExpand" />
+                                            <Button Grid.Row="1" Grid.Column="2"
+                                                        Text="Save coment"
+                                                        HorizontalOptions="Start"
+                                                        CommandParameter="{Binding Id}"
+                                                        Clicked="OnCommentSave"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </StackLayout>
+
+                </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        -->
+        <!--</ScrollView>-->
+
+
+    
+    
+</ContentPage>

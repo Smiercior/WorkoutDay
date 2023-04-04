@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutMaster.Views.ItemAddExercise">
+    <ContentPage.Content>
+        <CollectionView x:Name="exercisesView" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Exercise:" FontAttributes="Bold" FontSize="Large" Padding="10,10,0,0"/>
+                            <Label Grid.Row="2" Grid.Column="0" Text="Name:" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Black" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Name}" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Gold"/>
+                            <Label Grid.Row="3" Grid.Column="0" Text="Description:" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,0" TextColor="Black"/>
+                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Description}" HorizontalOptions="Start" FontSize="Medium" Padding="10,10,0,20" TextColor="Green"/>
+                            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Select" BackgroundColor="Green"
+                                    Clicked="OnAddExercise"
+                                    CommandParameter="{Binding Id}"
+                                    />
+                        </Grid>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</ContentPage>
