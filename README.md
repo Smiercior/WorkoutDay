@@ -14,22 +14,22 @@ You can add sets, reps, and comments.
 
 ## Screenshots
 * Home tab, there are all of your workout days
-![Home](Screenshots/Home.png){:height="800px" width="360px"}
+<img src="Screenshots/Home.png" alt="Home" style="width:360px;height:800px;">
 * After selecting a certain workout day (or if you create a new one)
-![Workout Day](Screenshots/WorkoutDay.png){:height="800px" width="360px"}
+<img src="Screenshots/WorkoutDay.png" alt="Workout Day" style="width:360px;height:800px;">
 * After clicking on "edit" in workout day
-![Edit](Screenshots/WorkoutDayEdit.png){:height="800px" width="360px"}
+<img src="Screenshots/WorkoutDayEdit.png" alt="Workout Day Edit" style="width:360px;height:800px;">
 * After clicking on "change type" in workout day -> edit
-![Edit2](Screenshots/WorkoutDayEditChangeType.png){:height="800px" width="360px"}
+<img src="Screenshots/WorkoutDayEditChangeType.png" alt="Workout Day Edit Change Type" style="width:360px;height:800px;">
 * After clicking on the "new exercise" in workout day -> edit
-![Edit3](Screenshots/WorkoutDayEditNewExercise.png){:height="800px" width="360px"}
+<img src="Screenshots/WorkoutDayEditNewExercise.png" alt="Workout Day Edit New Exercise" style="width:360px;height:800px;">
 * After clicking on "?" in certain exercise in workout day -> edit (you see all sets and reps for that exercise in selected workout type)
-![Edit4](Screenshots/WorkoutDayEditQuestionMark.png){:height="800px" width="360px"}
+<img src="Screenshots/WorkoutDayEditQuestionMark.png" alt="Workout Day Edit Question Mark" style="width:360px;height:800px;">
 * After clicking on Add Exercise tab
-![Add Exercise](Screenshots/AddExercise.png){:height="800px" width="360px"}
+<img src="Screenshots/AddExercise.png" alt="Add Exercise" style="width:360px;height:800px;">
 * After clicking on "Add New Exercise" in Add Exercise
-![Add Exercise2](Screenshots/AddExerciseAddNewExercise.png){:height="800px" width="360px"}
+<img src="Screenshots/AddExerciseAddNewExercise.png" alt="Add Exercise Add New Exercise" style="width:360px;height:800px;">
 * After clicking on "Add New Exercise Type" in Add Exercise
-![Add Exercise3](Screenshots/AddExerciseAddNewExerciseType.png){:height="800px" width="360px"}
+<img src="Screenshots/AddExerciseAddNewExerciseType.png" alt="Add Exercise Add New Exercise Type" style="width:360px;height:800px;">
 * ERD
-![ERD](Screenshots/ERD.PNG)
+<img src="Screenshots/ERD.PNG" alt="ERD">
