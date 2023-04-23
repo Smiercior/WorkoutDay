@@ -76,11 +76,38 @@ namespace WorkoutMaster.Services
         public async Task<List<WorkoutDay>> GetWorkoutDaysByType(string exerciseType)
         {
             List<WorkoutDay> workoutDays = (await _connection.Table<WorkoutDay>().ToListAsync()).FindAll(x => x.Type == exerciseType);
-            foreach(WorkoutDay workoutDay in workoutDays)
+            foreach (WorkoutDay workoutDay in workoutDays)
             { 
                 workoutDay.ExerciseEntries = await GetExerciseEntriesForWorkoutDay(workoutDay.Id);
             }
             return workoutDays;
+        }
+
+        public async Task<List<WorkoutDay>> GetWorkoutDaysByType(string exerciseType, int number)
+        {
+
+            List<WorkoutDay> workoutDays = await _connection.Table<WorkoutDay>().ToListAsync();
+            List<WorkoutDay> finalWorkoutDays = new List<WorkoutDay>();
+            int found = 0;
+
+            for (int i = workoutDays.Count - 1; i >= 0; i--)
+            {
+                if(found > number)
+                {
+                    break;
+                }
+                if(workoutDays[i].Type == exerciseType)
+                {
+                    finalWorkoutDays.Add(workoutDays[i]);
+                    found++;
+                }
+            }
+
+            foreach (WorkoutDay workoutDay in finalWorkoutDays)
+            {
+                workoutDay.ExerciseEntries = await GetExerciseEntriesForWorkoutDay(workoutDay.Id);
+            }
+            return finalWorkoutDays;
         }
 
         public Task<int> UpdateWorkoutDay(WorkoutDay workoutDay)

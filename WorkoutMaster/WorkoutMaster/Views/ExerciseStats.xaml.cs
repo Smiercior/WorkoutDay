@@ -15,7 +15,8 @@ namespace WorkoutMaster.Views
     {
         int ExerciseEntryID { get; set; }
         string ExerciseName { get; set; }
-        WorkoutDay CurentDay { get; set; } 
+        WorkoutDay CurentDay { get; set; }
+        string userEntriesNumber = "3";
 
         public ExerciseStats(WorkoutDay cD, string eN)
         {
@@ -23,28 +24,26 @@ namespace WorkoutMaster.Views
             CurentDay = cD;
             ExerciseName = eN;
         }
-
         async protected override void OnAppearing()
         {
-            base.OnAppearing();
-
-            //ExerciseEntry exerciseEntry = (await App.DataBase.GetExerciseEntries()).Find(x => x.Id == ExerciseEntryID);
-            //WorkoutDay workoutDay = await App.DataBase.GetWorkoutDayById(exerciseEntry.WorkoutDayId);
-            //WorkoutDay workoutDay = (await App.DataBase.GetWorkoutDays()).Find(x => x.Id == exerciseEntry.WorkoutDayId);
-
+            base.OnAppearing();     
             string exerciseType = CurentDay.Type;
             string exerciseName = ExerciseName;
 
             Title.Title = exerciseName;
-
-            //Console.WriteLine("exercise Type: " + exerciseType);
-            //Console.WriteLine("exercise Name: " + exerciseName);
-
-            //List<WorkoutDay> workoutDays = (await App.DataBase.GetWorkoutDays()).FindAll(x => x.Type == exerciseType);
-            List<WorkoutDay> workoutDays = await App.DataBase.GetWorkoutDaysByType(exerciseType);
+            List<WorkoutDay> workoutDays = new List<WorkoutDay>();
+            if (userEntriesNumber == "all")
+            {
+                workoutDays = await App.DataBase.GetWorkoutDaysByType(exerciseType);
+            }
+            else
+            {
+                int entriesNumber = int.Parse(userEntriesNumber);
+                workoutDays = await App.DataBase.GetWorkoutDaysByType(exerciseType, entriesNumber);
+            }
+           
             workoutDays.Sort((x, y) => DateTime.Compare(y.Date, x.Date));
             List<ExerciseStat> exerciseStats = new List<ExerciseStat>();
-
 
             // Get all data about certain exercise
             foreach (WorkoutDay wDay in workoutDays)
@@ -67,6 +66,12 @@ namespace WorkoutMaster.Views
             }
 
             exerciseStatsView.ItemsSource = exerciseStats;
+        }
+
+        void OnPickerSelectedIndexChange(object sender, EventArgs e)
+        {
+            userEntriesNumber = ((Picker)sender).SelectedItem.ToString();
+            this.OnAppearing();
         }
     }
 

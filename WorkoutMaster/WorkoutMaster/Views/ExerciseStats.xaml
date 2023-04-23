@@ -4,45 +4,70 @@
              x:Class="WorkoutMaster.Views.ExerciseStats"
              Title="" x:Name="Title">
 
-    <CollectionView x:Name="exerciseStatsView" >
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <ScrollView>
-                    <Grid Padding="0,0,0,0" Margin="10,0,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Text="{Binding Date}" HorizontalOptions="Start" FontSize="Medium" Padding="0,10,0,0" TextColor="Black" FontAttributes="Bold"/>
+        <StackLayout Grid.Row="1"  Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Text="Entires number:" FontSize="Medium" VerticalOptions="Center" TextColor="{StaticResource BtnYellow}"></Label>
+            <Picker x:Name="entiresNumberPicker" TextColor="{StaticResource BtnGreen}"
+                    SelectedIndexChanged="OnPickerSelectedIndexChange"
+                    WidthRequest="50"
+                    HorizontalTextAlignment="Center">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>3</x:String>
+                        <x:String>6</x:String>
+                        <x:String>9</x:String>
+                        <x:String>all</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </StackLayout>
 
-                        <FlexLayout Grid.Row="1" Direction="Column" BindableLayout.ItemsSource="{Binding Sets}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto" />
-                                        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="2">
+            <CollectionView x:Name="exerciseStatsView" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView>
+                            <Grid Padding="0,0,0,0" Margin="10,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
 
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding KG}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Text=" x "  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
-                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Reps}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </FlexLayout>
+                                <Label Grid.Row="0" Text="{Binding Date}" HorizontalOptions="Start" FontSize="Medium" Padding="0,10,0,0" TextColor="Black" FontAttributes="Bold"/>
 
-                        <Label Grid.Row="2" Text="{Binding Comment}" HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,10" TextColor="Gray"/>
-                    </Grid>
-                </ScrollView>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                                <FlexLayout Grid.Row="1" Direction="Column" BindableLayout.ItemsSource="{Binding Sets}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto" />
+                                                </Grid.RowDefinitions>
 
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding KG}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                                <Label Grid.Row="0" Grid.Column="1" Text=" x "  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                                <Label Grid.Row="0" Grid.Column="2" Text="{Binding Reps}"  HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,0" TextColor="Black"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+
+                                <Label Grid.Row="2" Text="{Binding Comment}" HorizontalOptions="Start" FontSize="Medium" Padding="0,0,0,10" TextColor="Gray"/>
+                            </Grid>
+                        </ScrollView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Grid>
 </ContentPage>
