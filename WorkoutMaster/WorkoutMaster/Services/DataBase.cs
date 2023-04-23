@@ -60,6 +60,10 @@ namespace WorkoutMaster.Services
         public async Task<WorkoutDay> GetWorkoutDayById(int ID)
         {
             WorkoutDay workoutDay = (await _connection.Table<WorkoutDay>().ToListAsync()).Find(x => x.Id == ID);  
+            if(workoutDay == null)
+            {
+                return null; 
+            }
             workoutDay.ExerciseEntries = await GetExerciseEntriesForWorkoutDay(workoutDay.Id);
             return workoutDay;
         }

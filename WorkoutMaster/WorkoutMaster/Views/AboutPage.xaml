@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
        
@@ -64,6 +65,25 @@
                         Clicked="OnCreateNewDay"
                         BackgroundColor="{StaticResource BtnGreen}"
                         TextColor="White" />
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView Grid.Row="4" HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal" Padding="30,2,30,24" Spacing="10">
+                <Button Text="Make safe copy"
+                        Clicked="OnMakeDbCopy"
+                        BackgroundColor="{StaticResource BtnYellow}"
+                        TextColor="White" />
+                <Button Text="Read workout file"
+                        Clicked="OnReadDb"
+                        BackgroundColor="{StaticResource BtnYellow}"
+                        TextColor="White" />
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView Grid.Row="5">
+            <StackLayout Padding="30,2,30,24" Spacing="10">
+                <Label x:Name="messageLabel" Text="" HorizontalOptions="Center"></Label>
             </StackLayout>
         </ScrollView>
     </Grid>

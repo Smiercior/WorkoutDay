@@ -88,6 +88,11 @@ namespace WorkoutMaster.Views
             else
             {
                 currentDay = await App.DataBase.GetWorkoutDayById(Int32.Parse(ID));
+                if(currentDay == null)
+                {
+                    ID = null;
+                    this.OnAppearing();
+                }
             }
 
             // Set workout day

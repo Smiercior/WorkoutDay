@@ -47,25 +47,28 @@ namespace WorkoutMaster.Views
         {
             base.OnAppearing();
      
-
             if (id != -1 && !ignoreScroll)
             {
                 // Edit new workout day or existing workout day
                 currentDay = await App.DataBase.GetWorkoutDayById(ID);
-                //currentDay = ((await App.DataBase.GetWorkoutDays()).Find(x => x.Id == ID));
-
-                FormattedDate = currentDay.Date.ToShortDateString();
-                WorkoutDayLayout.BindingContext = currentDay;
-
-                // Scroll to certain item
-                if(currentDay.ExerciseEntries.Count > 0)
+                if(currentDay == null)
                 {
-                    if (CurrentItemID >= 0) exerciseEntriesView.ScrollTo(CurrentItemID);
-                    else if (CurrentItemID == -1) exerciseEntriesView.ScrollTo(currentDay.ExerciseEntries.Count - 1);
-                }  
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    FormattedDate = currentDay.Date.ToShortDateString();
+                    WorkoutDayLayout.BindingContext = currentDay;
+
+                    // Scroll to certain item
+                    if (currentDay.ExerciseEntries.Count > 0)
+                    {
+                        if (CurrentItemID >= 0) exerciseEntriesView.ScrollTo(CurrentItemID);
+                        else if (CurrentItemID == -1) exerciseEntriesView.ScrollTo(currentDay.ExerciseEntries.Count - 1);
+                    }
+                }      
             }
             ignoreScroll = false;
-
         }
 
         async void OnNewExercise(object sender, EventArgs e)

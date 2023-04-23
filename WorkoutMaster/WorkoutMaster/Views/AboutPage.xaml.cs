@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 using WorkoutMaster.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,22 +16,6 @@ namespace WorkoutMaster.Views
     {
         public AboutPage()
         {
-            bool copy = false;
-            if(copy)
-            {
-                try
-                {
-                    string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
-                    string copypath = Path.Combine("/storage/emulated/0/Android/data/com.companyname.workoutmaster", Path.GetFileName(filepath));
-                    File.Copy(filepath, copypath);
-                    Console.WriteLine("Success !!!!!!!!!!!!!!!!!!!!!!!!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Błąd !!!!!!!!!!!: " + ex.Message);
-                }
-            }
-            
             InitializeComponent();
         }
 
@@ -44,6 +29,9 @@ namespace WorkoutMaster.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            // Clear all messages
+            messageLabel.Text = "";
 
             try
             {
@@ -71,6 +59,40 @@ namespace WorkoutMaster.Views
         async void OnCreateNewDay(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"////{nameof(ItemsPage)}");
+        }
+
+        // User wanto to make a copy of database
+        async void OnMakeDbCopy(object sender, EventArgs e)
+        {
+            try
+            {
+                string dbPath = App.DBPath;
+                string dbCopyPath = App.DBPath.Replace(".db3", $"{DateTime.Now.ToString("ddMMyyyy")}.db3");
+                await Task.Run(() =>
+                {
+                    File.Copy(dbPath, dbCopyPath);
+                });
+
+                messageLabel.TextColor = Color.Green;
+                messageLabel.Text = "Succeed to make a copy";
+            }
+            catch (Exception ex)
+            {
+                messageLabel.TextColor = Color.Red;
+                if (ex.Message.Contains("File already exists."))
+                {
+                    messageLabel.Text = $"Failed to a make copy, because: File with today's data already exists";
+                }
+                else
+                {
+                    messageLabel.Text = $"Failed to make copy, because: Unknown error";
+                }
+            }
+        }
+
+        async void OnReadDb(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SelectDbPage());
         }
     }
 }
